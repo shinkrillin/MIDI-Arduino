@@ -1,23 +1,90 @@
 //I'm using this sketch as a starting point for triggering MIDI signals with a Sharp infrared range finder. I've editied some terms accordingly.
 
 byte noteON = 144;//note on command
-int sensPin = A0;
+
+int sensPin1 = A0;
+int sensPin2 = A1;
+int sensPin3 = A2;
+int sensPin1 = A3;
+int sensPin2 = A4;
+int sensPin3 = A5;
 
 void setup() {
   Serial.begin(9600);
 }
 
-void loop() {
-  
-  int sensVal = analogRead(sensPin);//read data from range sensor
+void loop() 
+{
+  int sensVal1 = analogRead(sensPin1);//read data from range sensor 1
   
   //This was originally for use with a 10k potentiometer with 5 volt power, which should work well with the Sharp infrared range finders.
-  byte note = map(sensVal, 0, 1023, 0, 127);
+  byte velocity = map(sensVal, 0, 1023, 0, 127);
+  byte note = 20
   
-  MIDImessage(noteON, note, 100);//turn note on
+  MIDImessage(noteON, note, velocity);//turn note on with sensor input controlled velocity
   delay(300);//hold note for 300ms
   MIDImessage(noteON, note, 0);//turn note off (note on with velocity 0)
   delay(200);//wait 200ms until triggering next note
+}
+
+{
+  int sensVal2 = analogRead(sensPin2);
+  
+  byte velocity = map(sensVal, 0, 1023, 0, 127);
+  byte note = 40
+  
+  MIDImessage(noteON, note, velocity);
+  delay(300);
+  MIDImessage(noteON, note, 0);
+  delay(200);
+}
+
+{
+  int sensVal3 = analogRead(sensPin3);
+  
+  byte velocity = map(sensVal, 0, 1023, 0, 127);
+  byte note = 60
+  
+  MIDImessage(noteON, note, velocity);
+  delay(300);
+  MIDImessage(noteON, note, 0);
+  delay(200);
+}
+
+{
+  int sensVal4 = analogRead(sensPin4);
+  
+  byte velocity = map(sensVal, 0, 1023, 0, 127);
+  byte note = 80
+  
+  MIDImessage(noteON, note, velocity);
+  delay(300);
+  MIDImessage(noteON, note, 0);
+  delay(200);
+}
+
+{
+  int sensVal5 = analogRead(sensPin5);
+  
+  byte velocity = map(sensVal, 0, 1023, 0, 127);
+  byte note = 100
+  
+  MIDImessage(noteON, note, velocity);
+  delay(300);
+  MIDImessage(noteON, note, 0);
+  delay(200);
+}
+
+{
+  int sensVal6 = analogRead(sensPin6);
+  
+  byte velocity = map(sensVal, 0, 1023, 0, 127);
+  byte note = 120
+  
+  MIDImessage(noteON, note, velocity);
+  delay(300);
+  MIDImessage(noteON, note, 0);
+  delay(200);
 }
 
 //send MIDI message
