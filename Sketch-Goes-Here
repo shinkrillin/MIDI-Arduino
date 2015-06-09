@@ -1,0 +1,28 @@
+//I'm using this sketch as a starting point for triggering MIDI signals with a Sharp infrared range finder. I've editied some terms accordingly.
+
+byte noteON = 144;//note on command
+int sensPin = A0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  
+  int sensVal = analogRead(sensPin);//read data from range sensor
+  
+  //This was originally for use with a 10k potentiometer with 5 volt power, which should work well with the Sharp infrared range finders.
+  byte note = map(sensVal, 0, 1023, 0, 127);
+  
+  MIDImessage(noteON, note, 100);//turn note on
+  delay(300);//hold note for 300ms
+  MIDImessage(noteON, note, 0);//turn note off (note on with velocity 0)
+  delay(200);//wait 200ms until triggering next note
+}
+
+//send MIDI message
+void MIDImessage(byte command, byte data1, byte data2) {
+  Serial.write(command);
+  Serial.write(data1);
+  Serial.write(data2);
+}
